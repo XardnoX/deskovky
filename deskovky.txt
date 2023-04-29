@@ -1,3 +1,2 @@
-Dostihy a sázky;true;3
-člověče nezlob se;false;1
-šachy;false;1
+dsfas;true;2
+fdasf;false;3

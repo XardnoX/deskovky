@@ -1,12 +1,12 @@
 import javax.swing.*;
-import java.io.File;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class GUI extends JFrame {
 
     public static final String FILE_PATH = "deskovky.txt";
-
+    private static final String TEXT = "text.txt";
     private List<Deskovka> listData = new ArrayList<>();
     private Deskovka current;
 
@@ -19,6 +19,7 @@ public class GUI extends JFrame {
     private JRadioButton priority1;
     private JRadioButton priority2;
     private JRadioButton priority3;
+    private JButton saveButton;
 
     private JFileChooser jFileChooser;
 
@@ -29,14 +30,22 @@ public class GUI extends JFrame {
             System.out.println("Cannot load file!");
             return;
         }
+
 */
+        List<Deskovka> list = new ArrayList<>();
+
+
+        saveButton.addActionListener(e -> {
+            Deskovka deskovka = null;
+            zapis(current);
+           }  );
         jFileChooser = new JFileChooser(".");
 
         loadData.addActionListener(e -> readFromFile());
 
         nextButton.addActionListener(e -> {
-            Deskovka deskovka;
-         /*   if (current == null) {
+
+            if (current == null) {
                 if (listData.isEmpty()) {
                     return;
                 }
@@ -44,9 +53,10 @@ public class GUI extends JFrame {
                 showData(listData.get(0));
                 return;
             }
- */
 
+            Deskovka deskovka;
             try {
+
                 deskovka = listData.get(listData.indexOf(current) + 1);
             } catch (Exception ex) {
                 JOptionPane.showMessageDialog(null, "There are not next data!");
@@ -62,6 +72,7 @@ public class GUI extends JFrame {
         });
 
         previousButton.addActionListener(e -> {
+            Deskovka deskovka;
             if (current == null) {
                 if (listData.isEmpty()) {
                     return;
@@ -71,7 +82,6 @@ public class GUI extends JFrame {
                 return;
             }
 
-            Deskovka deskovka;
             try {
                 deskovka = listData.get(listData.indexOf(current) - 1);
             } catch (Exception ex) {
@@ -111,15 +121,15 @@ public class GUI extends JFrame {
     }
 
     public void readFromFile() {
-      int result = jFileChooser.showOpenDialog(this);
+        int result = jFileChooser.showOpenDialog(this);
 
-/*        if (result == JFileChooser.CANCEL_OPTION || result == JFileChooser.ERROR_OPTION) {
+        if (result == JFileChooser.CANCEL_OPTION || result == JFileChooser.ERROR_OPTION) {
             System.out.println("Invalid option, please select file again!");
             return;
         }
-*/
+
         System.out.println("Reading..");
-   //     panel.remove(loadData);
+        panel.remove(loadData);
 
         listData = FileUtils.loadData(jFileChooser.getSelectedFile());
 
@@ -131,6 +141,43 @@ public class GUI extends JFrame {
         Deskovka deskovka = listData.get(0);
         showData(deskovka);
     }
+
+    private List<Deskovka> deskovky;
+
+    private void zapis(Deskovka deskovka) {
+        try (PrintWriter writer = new PrintWriter(new BufferedWriter(new FileWriter(TEXT)))) {
+            try {
+                writer.println(current.getName());
+                writer.println(";");
+                if (current.isBought() == false){
+                    writer.println("false");
+                }
+                writer.println(";");
+                if (current.isBought() == true){
+                    writer.println("true");
+                }
+                writer.println(";");
+                if (priority1.isSelected()){
+                    writer.println("1");
+                }
+                if (priority2.isSelected()){
+                    writer.println("2");
+                }
+                if (priority3.isSelected()){
+                    writer.println("3");
+                }
+                writer.println("\n");
+
+
+            } catch (Exception e) {
+                System.out.println("idk");
+
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "nelze uložit deskovku!");
+        }
+    }
+
 
     public static void main(String[] args) {
         GUI main = new GUI();
