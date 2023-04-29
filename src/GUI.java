@@ -102,7 +102,7 @@ public class GUI extends JFrame {
         this.current = deskovka;
         resetButtons();
 
-        data.append(deskovka.toString());
+        data.setText(deskovka.toString());
         bought.setSelected(deskovka.isBought());
 
         if (deskovka.getPopularity() == 1) priority1.setSelected(true);
@@ -170,11 +170,11 @@ public class GUI extends JFrame {
 
 
             } catch (Exception e) {
-                System.out.println("idk");
+                System.out.println("Cannot save the file!");
 
             }
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "nelze uložit deskovku!");
+            JOptionPane.showMessageDialog(null, "Cannot save the file!");
         }
     }
 
