@@ -38,7 +38,7 @@ public class GUI extends JFrame {
         saveButton.addActionListener(e -> {
             Deskovka deskovka = null;
             zapis(current);
-           }  );
+        });
         jFileChooser = new JFileChooser(".");
 
         loadData.addActionListener(e -> readFromFile());
@@ -149,21 +149,20 @@ public class GUI extends JFrame {
             try {
                 writer.println(current.getName());
                 writer.println(";");
-                if (current.isBought() == false){
+                if (current.isBought() == false) {
                     writer.println("false");
                 }
-
-                if (current.isBought() == true){
+                if (current.isBought() == true) {
                     writer.println("true");
                 }
                 writer.println(";");
-                if (priority1.isSelected()){
+                if (priority1.isSelected()) {
                     writer.println("1");
                 }
-                if (priority2.isSelected()){
+                if (priority2.isSelected()) {
                     writer.println("2");
                 }
-                if (priority3.isSelected()){
+                if (priority3.isSelected()) {
                     writer.println("3");
                 }
                 writer.println("\n");
