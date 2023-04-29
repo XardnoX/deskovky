@@ -152,7 +152,7 @@ public class GUI extends JFrame {
                 if (current.isBought() == false){
                     writer.println("false");
                 }
-                writer.println(";");
+
                 if (current.isBought() == true){
                     writer.println("true");
                 }
